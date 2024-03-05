@@ -1,0 +1,8 @@
+version: '3'
+services:
+  my_service:
+    image: infracloudio/csvserver:latest
+    volumes:
+      - /root/inputFile.csv:/csvserver/inputdata/
+    environment:
+      - ENV_FILE_PATH=/root/csvserver.env
