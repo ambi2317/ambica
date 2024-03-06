@@ -1,0 +1,23 @@
+version: '3'
+  
+services:
+  app:
+    image: infracloudio/csvserver:latest
+    container_name: csvserver
+    volumes:
+      - /root/inputFile.csv:/csvserver/inputdata/
+    environment:
+     - ENV_FILE_PATH=/csvserver.env
+    ports:
+      - "9393:9300"
+    expose:
+      - "8000"  # Expose the port for Prometheus to scrape
+
+  prometheus:
+    image: prom/prometheus:v2.45.2
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - /root/prometheus.yml:/etc/prometheus/prometheus.yml
